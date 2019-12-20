@@ -1,0 +1,123 @@
+.host {
+  width: 937px;
+  height: 99px;
+  margin-top: 57px;
+  margin-left: 4px;
+  display: flex;
+}
+
+.host_label_name {
+  width: 286px;
+  text-align: center;
+  margin: 0 0 8px 41px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+}
+
+.host_input_1 {
+  display: flex;
+  align-items: center;
+}
+
+.host_label_email {
+  width: 286px;
+  text-align: center;
+  margin: 0 0 8px 55px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+}
+
+.host_input_2 {
+  width: 565px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 55px;
+}
+
+.participant_number {
+	height: 40px;
+	width: 23px;
+	color: #FFFFFF;
+	font-family: Eczar;
+	font-size: 59px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 52px;
+  padding-right: 18px;
+}
+
+.host_info_warning {
+	height: 15px;
+	color: #FF4946;
+	font-family: Roboto;
+  font-size: 16px;
+} 
+
+/* ----------- ADD ------------- */
+
+.participant {
+  width: 897px;
+}
+
+.participant_inputs {
+  padding-left: 4px; 
+  display: flex;
+  align-items: center;
+}
+
+.participant_render_1 {
+  width: 327px;
+  height: 148px;
+  display: flex;
+  flex-direction: column;
+}
+
+.participant_label_name {
+  height: 15px;
+  width: 286px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  text-align: center;
+  padding: 40px 0 18px 41px;
+}
+
+.participant_input_name {
+  display: flex;
+  align-items: center;
+}
+
+.participant_render_2 {
+  width: 521px;
+  height: 148px;
+  display: block;
+  flex-direction: column;
+}
+
+.participant_label_email {
+  height: 15px;
+  width: 286px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  text-align: center;
+  padding: 40px 0 18px 55px;
+}
+
+.participant_input_email {
+  width: 521px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 55px;
+}
+
+.btn_add {
+  display: block;
+  height: 130px;
+  width: 276px;
+  padding: 64px 0 0 44px;
+}
