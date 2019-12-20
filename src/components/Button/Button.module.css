@@ -1,0 +1,80 @@
+.button-add {
+	box-sizing: border-box;
+	height: 66px;
+	width: 273px;
+  border: 1px solid #FF4946;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  place-content: center;
+
+	color: #FF4946;
+	font-family: Roboto;
+  font-size: 16px;
+}
+
+.button-add:hover{
+  cursor: pointer;
+}
+
+.button-add:focus{
+  outline: none;
+}
+
+.button-add:active {
+  transform: translateY(4px);
+}
+
+.button-remove {
+	box-sizing: border-box;
+	height: 68px;
+	width: 143px;
+  border: 1px solid #20253F;
+  background-color: transparent;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-evenly;
+
+  color: #02244B;
+	font-family: Roboto;
+  font-size: 16px;
+}
+
+.button-remove:hover{
+  cursor: pointer;
+}
+
+.button-remove:focus{
+  outline: none;
+}
+
+.button-remove:active {
+  transform: translateY(4px);
+}
+
+.button-submit {
+	box-sizing: border-box;
+	height: 66px;
+	width: 273px;
+  border: 1px solid #FF4946;
+  background-color: #FF4946;
+  border-radius: 10px;
+  display: flex;
+  place-content: center;
+
+  color: #fefefe;
+	font-family: Roboto;
+  font-size: 16px;
+}
+
+.button-submit:hover{
+  cursor: pointer;
+}
+
+.button-submit:focus{
+  outline: none;
+}
+
+.button-submit:active {
+  transform: translateY(4px);
+}
