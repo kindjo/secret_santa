@@ -1,0 +1,33 @@
+.secret_santa {
+	height: 59px;
+	width: 546px;
+	color: #02244B;
+	font-family: Eczar;
+	font-size: 85px;
+	font-weight: 500;
+  line-height: 70px;
+  padding: 96px 724px 0px 732px;
+  margin: 0;
+}
+
+.image_star {
+  width: 40px;
+  height: 33px;
+  padding: 22px 976px 0px 986px;
+}
+
+.text {
+	height: 67px;
+	width: 455px;
+	color: #FF4B49;
+	font-family: Eczar;
+	font-size: 18px;
+	line-height: 25px;
+  padding: 23px 779px 0px 768px;
+}
+
+.image_santa {
+	height: 350px;
+  width: 543px;
+  padding-top: 49px;
+}
