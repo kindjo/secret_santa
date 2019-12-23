@@ -1,6 +1,6 @@
 import React from 'react';
 import style from './Heading.module.css'; 
-import star from '../../img/logo.svg';
+import star from '../../img/zvezdica.svg';
 
 const Heading = () => {
   const value = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam et pellentesque elit. Pellentesque non mattis sapien. Ut est velit, commodo.";
