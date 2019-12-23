@@ -85,7 +85,7 @@ class Participants extends Component {
               </div>
               <div className={style.host_input_2}>
                 <Input
-                  placeholder="Name..."
+                  placeholder="Email..."
                   value={this.state.host}
                   onChange={this.handleHostNameChange} 
                 />
