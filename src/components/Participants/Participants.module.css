@@ -112,3 +112,92 @@
   width: 276px;
   padding: 64px 0 0 44px;
 }
+
+.participants_line {
+  height: 3px;
+  border-radius: 5px;
+  background-color: #FF4B49;
+  text-decoration: none;
+  border: none;
+  margin-left: 44px;
+}
+
+.btn_submit {
+  display: block;
+  margin: 55px 0 0 44px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ----------- PARTY-INFO FORM ------------- */
+
+.form_block{
+  width: 978px;
+  padding-top: 75px;
+}
+
+.info_form{
+  width: 978px;
+  height: 296px;
+}
+
+.add_your_participants {
+	height: 81px;
+	color: #FFFFFF;
+	font-family: Eczar;
+	font-size: 85px;
+	font-weight: 500;
+  line-height: 90px;
+  margin: 0px;
+}
+
+.party_info {
+	height: 99px;
+  width: 933px;
+  margin-left: 45px;
+  margin-top: 47px;
+}
+
+.party_info_desc {
+  height: 15px;
+  display: flex;
+  margin-bottom: 18px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  display: flex;
+  justify-content: left;
+}
+
+.party_info_desc_date {
+  height: 15px;
+  width: 286px;
+  margin: 0;
+}
+
+.party_info_desc_location {
+  height: 15px;
+  width: 286px;
+  margin: 0;
+  padding-left: 37px;
+}
+
+.party_info_desc_ammount {
+  height: 15px;
+  width: 286px;
+  margin: 0;
+  padding-left: 38px;
+}
+
+.party_info_input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.party_info_line {
+	height: 2px;
+  background-color: #FF4B49;
+  text-decoration: none;
+  border: none;
+  margin-top: 65px;
+}

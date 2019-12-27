@@ -5,6 +5,12 @@ import Input from '../Input/Input';
 import Button from '../Button/Button';
 
 function Participants(index) {
+  const [info, setInfo] = useState({
+    date: '', 
+    location: '', 
+    ammount: ''
+  });
+
   const [host, setHost] = useState({
     hostName: '',
     email: ''
@@ -15,12 +21,15 @@ function Participants(index) {
     { ...blankParticipant },
   ]);
 
+  const handleInfoChange = (event) => 
+    setInfo({...info, [event.target.name]: event.target.value,});
+
   const handleHostChange = (event) => 
     setHost({...host, [event.target.name]: event.target.value,});
 
   const handleParticipantChange = (event) => {
     const updatedParticipants = [...participants];
-    updatedParticipants[event.target.dataset.index][event.target.cname] = event.target.value; 
+    updatedParticipants[event.target.dataset.index][event.target.title] = event.target.value; 
     setParticipants(updatedParticipants);
   };
 
@@ -33,6 +42,25 @@ function Participants(index) {
     setParticipants(participants.filter((p, pindex) => index !== pindex));
   };
 
+  const handleSubmit = () => {
+    console.log(`The party will be held on: ${info.date}, on the location: ${info.location}, the max ammount of money is: ${info.ammount} RSD`);
+    console.log(`The host is: ${host.hostName}`);
+    
+    const parti = participants.concat(host);
+
+    parti.sort(() => 0.5 - Math.random());
+    const pairs = [];
+  
+    while (parti.length >=2) {
+      const pair = [parti.pop(), parti.pop()];
+      console.log('Pair: ', pair);
+      pairs.push(pair);
+    }
+  
+    console.log('All pairs', pairs)
+  }
+  
+  useEffect(() => console.log(info));
   useEffect(() => console.log(host));
   useEffect(() => console.log(participants));
 
@@ -41,7 +69,38 @@ function Participants(index) {
   const emailId = `email-${index}`;
 
   return(
-    <div>         
+    <div>
+      <div className={style.form_block}>
+      <form className={style.info_form}>
+        <h1 className={style.add_your_participants}>Add your participants</h1>
+        <div className={style.party_info}>
+          <div className={style.party_info_desc}>
+            <p className={style.party_info_desc_date}>Date of your Secret Santa party</p>
+            <p className={style.party_info_desc_location}>Location of your Secret Santa party</p>
+            <p className={style.party_info_desc_ammount}>Amount to spend</p>
+          </div>
+          <div className={style.party_info_input}>
+            <Input 
+              onChange={handleInfoChange} 
+              name="date" 
+              placeholder="Date..."              
+            />
+            <Input 
+              onChange={handleInfoChange} 
+              name="location" 
+              placeholder="Location..."
+            />
+            <Input 
+              onChange={handleInfoChange} 
+              name="ammount" 
+              placeholder="Ammount in RSD..."
+            />
+          </div>
+          <hr className={style.party_info_line} />
+        </div>
+      </form>
+      </div>   
+
       <form className={style.host}>
         <div>
           <div className={style.host_label_name}>
@@ -92,18 +151,18 @@ function Participants(index) {
                       name={participantId}
                       data-index={index}
                       id={participantId}
-                      cname="name"
+                      title="name"
                       value={value.name}                 
                       onChange={handleParticipantChange}
                   />
                 </div>
                 <div className={style.participant_input_email}>
                   <Input
-                      placeholder="Email..."
+                      placeholder="email"
                       name={emailId}
                       data-index={index}
                       id={emailId}
-                      cname="email"
+                      title="email"
                       value={value.email}
                       onChange={handleParticipantChange}
                   />
@@ -131,6 +190,17 @@ function Participants(index) {
           </Button>
         </div>
       </form>
+
+      <hr className={style.participants_line} />
+
+      <div className={style.btn_submit}>
+        <Button
+          submit
+          onClick={handleSubmit}
+        >
+          SUBMIT
+        </Button>
+      </div>
     </div>
   );      
 }
