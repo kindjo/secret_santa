@@ -1,157 +1,138 @@
-import React, { Component } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import style from './Participants.module.css';
 
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 
-class Participants extends Component {
-  constructor(props) {
-    super(props)
-    
-    this.state = {
-      host: "",
-      email: "",
-      participants: [{ name: ""}],
-      emails: [{ address: ""}]
-    };
-  }
-
-  handleHostNameChange = event => {
-    this.setState({ host: event.target.value });
-  };
+function Participants(index) {
+  const [host, setHost] = useState({
+    hostName: '',
+    email: ''
+  });
   
-  handleHostEmailChange = event => {
-    this.setState({ email: event.target.value });
+  const blankParticipant = { name: '', email: '' };
+  const [participants, setParticipants] = useState([
+    { ...blankParticipant },
+  ]);
+
+  const handleHostChange = (event) => 
+    setHost({...host, [event.target.name]: event.target.value,});
+
+  const handleParticipantChange = (event) => {
+    const updatedParticipants = [...participants];
+    updatedParticipants[event.target.dataset.index][event.target.cname] = event.target.value; 
+    setParticipants(updatedParticipants);
   };
 
-  handleParticipantNameChange = idx => event => {
-    const newParticipants = this.state.participants.map((participant, pidx) => {
-      if (idx !== pidx) return participant;
-      return { ...participant, name: event.target.value };
-    });
-
-    this.setState({ participants: newParticipants });
+  const handleAddParticipant = () => {
+    setParticipants([...participants, { ...blankParticipant }]);
   };
 
-  handleParticipantEmailChange = idx => event => {
-    const newEmails = this.state.emails.map((email, eidx) => {
-      if (idx !== eidx) return email;
-      return { ...email, address: event.target.value };
-    });
-
-    this.setState({ emails: newEmails });
-  };
-
-  handleAddParticipants = () => {
-    this.setState({
-      participants: this.state.participants.concat([{ name: "" }]),
-      emails: this.state.emails.concat([{ address: "" }])
-    });
-  };
-
-  handleRemoveParticipants = idx => (event) => {
+  const handleRemoveParticipant = index => (event) => {
     event.preventDefault();
-    this.setState({
-      participants: this.state.participants.filter((p, pidx) => idx !== pidx),
-      emails: this.state.emails.filter((e, eidx) => idx !== eidx)
-    });
+    setParticipants(participants.filter((p, pindex) => index !== pindex));
   };
 
-  componentDidUpdate = () => {
-    console.log(this.state);
-  }
+  useEffect(() => console.log(host));
+  useEffect(() => console.log(participants));
 
-    render(){
-      return(
-        <div>         
-          <form className={style.host}>
-            <div>
-              <div className={style.host_label_name}>
-                <label>Host</label>
+
+  const participantId = `name-${index}`;
+  const emailId = `email-${index}`;
+
+  return(
+    <div>         
+      <form className={style.host}>
+        <div>
+          <div className={style.host_label_name}>
+            <label>Host</label>
+          </div>
+          <div className={style.host_input_1}>
+            <p className={style.participant_number}>1</p>
+            <Input
+              placeholder="Name..."
+              name="hostName"
+              id="hostName"
+              value={host.hostName}
+              onChange={handleHostChange}
+            />
+          </div>
+        </div>
+        
+        <div>
+          <div className={style.host_label_email}>
+            <label>Email</label>
+          </div>
+          <div className={style.host_input_2}>
+            <Input
+              placeholder="Email..."
+              name="email"
+              id="email"
+              value={host.email}
+              onChange={handleHostChange}
+            />
+            <p className={style.host_info_warning}>This person is a participant too.</p>
+          </div>
+        </div>
+      </form>
+      
+      <form className={style.participant}>                
+        {
+          participants.map((value, index) => (
+            <div className={style.participant_block} key={`participant-${index}`}>
+              <div className={style.participant_label}>  
+                <label className={style.participant_label_name} htmlFor={participantId}>Participant</label>
+                <label className={style.participant_label_email} htmlFor={emailId}>Email</label>
               </div>
-              <div className={style.host_input_1}>
-                <p className={style.participant_number}>1</p>
-                <Input
-                  placeholder="Name..."
-                  value={this.state.host}
-                  onChange={this.handleHostNameChange} 
-                />
+              <div className={style.participant_input}>  
+                <p className={style.participant_number}>{index+2}</p>
+                <div className={style.participant_input_name}>  
+                  <Input
+                      placeholder="Name..."
+                      name={participantId}
+                      data-index={index}
+                      id={participantId}
+                      cname="name"
+                      value={value.name}                 
+                      onChange={handleParticipantChange}
+                  />
+                </div>
+                <div className={style.participant_input_email}>
+                  <Input
+                      placeholder="Email..."
+                      name={emailId}
+                      data-index={index}
+                      id={emailId}
+                      cname="email"
+                      value={value.email}
+                      onChange={handleParticipantChange}
+                  />
+                </div>
+                <div className={style.participant_button_remove}>
+                  <Button 
+                    remove
+                    onClick={handleRemoveParticipant(index)}
+                  >
+                    - REMOVE
+                  </Button>
+                </div>
               </div>
             </div>
-            
-            <div>
-              <div className={style.host_label_email}>
-                <label>Email</label>
-              </div>
-              <div className={style.host_input_2}>
-                <Input
-                  placeholder="Email..."
-                  value={this.state.host}
-                  onChange={this.handleHostNameChange} 
-                />
-                <p className={style.host_info_warning}>This person is a participant too.</p>
-              </div>
-            </div>
-          </form>
-          
-          <form className={style.participant}>                
-            <div className={style.participant_inputs}>
-              <div>
-                {this.state.participants.map((participant, idx) => (
-                  <div className={style.participant_render_1}>
-                    <div className={style.participant_label_name}> 
-                      <label>Participant</label>
-                    </div>
-                    <div className={style.participant_input_name}>  
-                      <p className={style.participant_number}>{idx+2}</p>
-                      <Input
-                        placeholder={`Name...`}
-                        value={participant.name}
-                        onChange={this.handleParticipantNameChange(idx)}
-                      />
-                    </div>  
-                  </div>          
-                ))}
-              </div>
-              
-              <div>
-                {this.state.emails.map((email, idx) => (
-                  <div className={style.participant_render_2}>
-                    <div className={style.participant_label_email}> 
-                      <label>Email</label>
-                    </div>
-                    <div className={style.participant_input_email}>
-                      <Input
-                        placeholder={`Email...`}
-                        value={email.address}
-                        onChange={this.handleParticipantEmailChange(idx)}
-                      />
-                      <Button
-                        remove
-                        onClick={this.handleRemoveParticipants(idx)}
-                      >
-                        - REMOVE
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          
-            <div className={style.btn_add}>
-              <Button 
-                add
-                type="button"
-                onClick={this.handleAddParticipants}
-              >
-              + ADD PERSON
-              </Button>
-            </div>
-          </form>
-            </div>
-          );
+          ))
         }
+      
+        <div className={style.btn_add}>
+          <Button 
+            add
+            type="button"
+            onClick={handleAddParticipant}
+          >
+          + ADD PERSON
+          </Button>
+        </div>
+      </form>
+    </div>
+  );      
 }
-
 
 export default Participants;

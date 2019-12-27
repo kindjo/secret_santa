@@ -59,52 +59,43 @@
 /* ----------- ADD ------------- */
 
 .participant {
-  width: 897px;
-}
-
-.participant_inputs {
-  padding-left: 4px; 
-  display: flex;
-  align-items: center;
-}
-
-.participant_render_1 {
-  width: 327px;
-  height: 148px;
   display: flex;
   flex-direction: column;
+}
+
+.participant_block {
+  width: 917px;
+}
+
+.participant_label {
+  height: 15px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  padding: 40px 0 18px 45px;
+  display: flex;
 }
 
 .participant_label_name {
   height: 15px;
   width: 286px;
-  color: #02244B;
-  font-family: Roboto;
-  font-size: 16px;
-  text-align: center;
-  padding: 40px 0 18px 41px;
-}
-
-.participant_input_name {
-  display: flex;
-  align-items: center;
-}
-
-.participant_render_2 {
-  width: 521px;
-  height: 148px;
-  display: block;
-  flex-direction: column;
 }
 
 .participant_label_email {
   height: 15px;
   width: 286px;
-  color: #02244B;
-  font-family: Roboto;
-  font-size: 16px;
-  text-align: center;
-  padding: 40px 0 18px 55px;
+  padding-left: 55px;
+}
+
+.participant_input {
+  padding-left: 4px; 
+  display: flex;
+  align-items: center;
+}
+
+.participant_input_name {
+  display: flex;
+  align-items: center;
 }
 
 .participant_input_email {
