@@ -7,7 +7,7 @@ const Heading = () => {
   
   return(
     <div className={style.santa}>
-      <h1 className={style.santa_headline}>-Secret Santa-</h1>
+      <h1 className={style.headline}>-Secret Santa-</h1>
       <img src={star} className={style.image_star} alt='star' />
       <p className={style.santa_text}>{value}</p>
     </div>

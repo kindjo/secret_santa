@@ -5,16 +5,17 @@
   margin: 0;
 }
 
-.santa_headline {
+.headline {
   width: 546px;
   height: 125px;
-	color: #02244B;
-	font-family: Eczar;
-	font-size: 85px;
+  color: #02244B;
+  font-family: Eczar;
+  font-size: 85px;
   font-weight: 500;
   padding-top: 56px;
   margin: 0;
 }
+
 
 .image_star {
   width: 40px;
