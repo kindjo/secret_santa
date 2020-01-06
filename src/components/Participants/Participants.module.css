@@ -1,0 +1,213 @@
+/* ----------- PARTY-INFO FORM ------------- */
+
+.form_block{
+  width: 978px;
+  padding-top: 75px;
+}
+
+.info_form{
+  width: 978px;
+  height: 296px;
+}
+
+.add_your_participants {
+	height: 81px;
+	color: #FFFFFF;
+	font-family: Eczar;
+	font-size: 85px;
+	font-weight: 500;
+  line-height: 90px;
+  margin: 0px;
+}
+
+.party_info {
+	height: 99px;
+  width: 933px;
+  margin-left: 45px;
+  margin-top: 47px;
+}
+
+.party_info_label {
+  height: 15px;
+  display: flex;
+  margin-bottom: 18px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  display: flex;
+  justify-content: left;
+}
+
+.party_info_label_date {
+  height: 15px;
+  width: 286px;
+  margin: 0;
+}
+
+.party_info_label_location {
+  height: 15px;
+  width: 286px;
+  margin: 0;
+  padding-left: 37px;
+}
+
+.party_info_label_ammount {
+  height: 15px;
+  width: 286px;
+  margin: 0;
+  padding-left: 38px;
+}
+
+.party_info_input {
+  display: flex;
+  justify-content: space-between;
+}
+
+.party_info_line {
+	height: 2px;
+  background-color: #FF4B49;
+  text-decoration: none;
+  border: none;
+  margin-top: 65px;
+}
+
+/* ----------- HOST ------------- */
+
+.host {
+  height: 99px;
+  width: 978px;
+  margin: 57px 0 0 4px;
+  display: flex;
+  flex-direction: column;
+}
+
+.host_label {
+  text-align: center;
+  margin: 0 0 8px 41px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  display: flex;
+}
+
+.host_label_name {
+  width: 286px;
+  text-align: center;
+}
+
+.host_label_email {
+  width: 286px;
+  text-align: center;
+  padding-left: 55px;
+}
+
+.host_input {
+  display: flex;
+  align-items: center;
+}
+
+.host_input_name {
+  display: flex;
+  align-items: center;
+}
+
+.host_input_email {
+  width: 286px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 55px;
+}
+
+.participant_number {
+	height: 40px;
+	width: 23px;
+	color: #FFFFFF;
+	font-family: Eczar;
+	font-size: 59px;
+  font-weight: 500;
+  margin: 0;
+  line-height: 52px;
+  padding-right: 18px;
+}
+
+.host_info_warning {
+  height: 15px;
+	color: #FF4946;
+	font-family: Roboto;
+  font-size: 16px;
+  padding-left: 63px;
+}
+
+/* ----------- ADD ------------- */
+
+.participant {
+  display: flex;
+  flex-direction: column;
+}
+
+.participant_block {
+  width: 917px;
+}
+
+.participant_label {
+  height: 15px;
+  color: #02244B;
+  font-family: Roboto;
+  font-size: 16px;
+  padding: 40px 0 18px 45px;
+  display: flex;
+}
+
+.participant_label_name {
+  height: 15px;
+  width: 286px;
+}
+
+.participant_label_email {
+  height: 15px;
+  width: 286px;
+  padding-left: 55px;
+}
+
+.participant_input {
+  padding-left: 4px; 
+  display: flex;
+  align-items: center;
+}
+
+.participant_input_name {
+  display: flex;
+  align-items: center;
+}
+
+.participant_input_email {
+  width: 521px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-left: 55px;
+}
+
+.btn_add {
+  display: block;
+  height: 130px;
+  width: 276px;
+  padding: 64px 0 0 44px;
+}
+
+.participants_line {
+  height: 3px;
+  border-radius: 5px;
+  background-color: #FF4B49;
+  text-decoration: none;
+  border: none;
+  margin-left: 44px;
+}
+
+.btn_submit {
+  display: block;
+  margin: 55px 0 0 44px;
+  display: flex;
+  justify-content: center;
+}
