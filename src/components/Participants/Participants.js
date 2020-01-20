@@ -89,6 +89,7 @@ function Participants() {
               />
               <Input 
                 onChange={handleInfoChange} 
+                type="number"
                 name="ammount" 
                 placeholder="Ammount in RSD..."
               />
