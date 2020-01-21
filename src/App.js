@@ -7,7 +7,7 @@ import santa from './img/santa.svg';
 
 function App() {
   return (
-    <div>
+    <div className={style.App}>
       <Heading />
       <img className={style.image_santa} src={santa} alt="Santa" />
       <Participants />

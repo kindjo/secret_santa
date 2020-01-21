@@ -211,3 +211,18 @@
   display: flex;
   justify-content: center;
 }
+
+/* ----------- Datetime ------------- */
+
+.dtp {
+	height: 68px;
+  width: 286px;
+  background-color: white;
+  font-size: 20px;
+  border: none;
+  border-radius: 10px;
+}
+
+.dtp:focus {
+  outline: none;
+}

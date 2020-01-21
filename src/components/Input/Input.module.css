@@ -16,3 +16,9 @@ input[type="text"] {
   font-size: 20px;
   padding-left: 10px;
 }
+
+input[type="number"] {
+  text-align: left;
+  font-size: 20px;
+  padding-left: 10px;
+}

@@ -1,12 +1,13 @@
-import React, { useState } from "react"; 
+import React, { useState, useEffect } from "react"; 
 import style from './Participants.module.css';
 
 import Input from '../Input/Input';
 import Button from '../Button/Button';
+import DateTimePicker from 'react-datetime-picker/dist/entry';
 
 function Participants() {
   const [info, setInfo] = useState({
-    date: '', 
+    date: new Date(), 
     location: '', 
     ammount: ''
   });
@@ -25,6 +26,9 @@ function Participants() {
 
   const handleInfoChange = (event) => 
     setInfo({...info, [event.target.name]: event.target.value,});
+
+  const handleDateChange = (date) =>
+    setInfo({...info, date: date});
 
   const handleHostChange = (event) => 
     setHost({...host, [event.target.name]: event.target.value,});
@@ -65,6 +69,8 @@ function Participants() {
   const participantId = `name-${index}`;
   const emailId = `email-${index}`;
 
+  useEffect(() => console.log(info));
+
   return(
     <div>
       <div className={style.form_block}>
@@ -77,10 +83,10 @@ function Participants() {
               <label className={style.party_info_label_ammount}>Amount to spend</label>
             </div>
             <div className={style.party_info_input}>
-              <Input 
-                onChange={handleInfoChange} 
-                name="date" 
-                placeholder="Date..."              
+              <DateTimePicker 
+                onChange={handleDateChange}
+                className={style.dtp}
+                value={info.date}
               />
               <Input 
                 onChange={handleInfoChange} 
@@ -89,6 +95,7 @@ function Participants() {
               />
               <Input 
                 onChange={handleInfoChange} 
+                type="number"
                 name="ammount" 
                 placeholder="Ammount in RSD..."
               />
