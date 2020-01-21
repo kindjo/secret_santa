@@ -4,6 +4,7 @@ import style from './Participants.module.css';
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import DateTimePicker from 'react-datetime-picker/dist/entry';
+import { NotificationContainer, notifyError } from '../Notifications/Notifications';
 
 function Participants() {
   const [info, setInfo] = useState({
@@ -19,10 +20,30 @@ function Participants() {
   
   const blankParticipant = { name: '', email: '' };
   const [participants, setParticipants] = useState([
-    { ...blankParticipant },
+    {...blankParticipant },
   ]);
 
   const index = 0;
+
+  const handleSubmitButtonSwitch = () => {
+    if (
+      info.date > 0 &&
+      info.location.length > 0 && 
+      info.ammount.length > 0 && 
+      host.hostName.length > 0 && 
+      host.email.length > 0 
+    ){
+      return <Button submit onClick={handleSubmit}>SUBMIT</Button>
+    }
+    else{
+      return (
+        <div>
+          <Button disabled onClick={() => notifyError("Fields can not be left empty", "Error")}>SUBMIT</Button>
+          <NotificationContainer />
+        </div>
+      )
+    } 
+  }
 
   const handleInfoChange = (event) => 
     setInfo({...info, [event.target.name]: event.target.value,});
@@ -46,7 +67,7 @@ function Participants() {
   const handleRemoveParticipant = index => (event) => {
     event.preventDefault();
     setParticipants(participants.filter((p, pindex) => index !== pindex));
-  };
+  };  
 
   const handleSubmit = () => {
     console.log(`The party will be held on: ${info.date}, on the location: ${info.location}, the max ammount of money is: ${info.ammount} RSD`);
@@ -69,7 +90,7 @@ function Participants() {
   const participantId = `name-${index}`;
   const emailId = `email-${index}`;
 
-  useEffect(() => console.log(info));
+  useEffect(() => console.log(info.date));
 
   return(
     <div>
@@ -195,12 +216,7 @@ function Participants() {
       <hr className={style.participants_line} />
 
       <div className={style.btn_submit}>
-        <Button
-          submit
-          onClick={handleSubmit}
-        >
-          SUBMIT
-        </Button>
+        {handleSubmitButtonSwitch()}
       </div>
     </div>
   );      
