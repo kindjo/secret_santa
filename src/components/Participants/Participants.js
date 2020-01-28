@@ -24,6 +24,8 @@ function Participants() {
 
   const index = 0;
 
+  const [santaPairs, setSantaPairs] = useState([]);
+
   const handleInfoChange = (event) => 
     setInfo({...info, [event.target.name]: event.target.value,});
 
@@ -49,9 +51,6 @@ function Participants() {
   };
 
   const handleSubmit = () => {
-    console.log(`The party will be held on: ${info.date}, on the location: ${info.location}, the max ammount of money is: ${info.ammount} RSD`);
-    console.log(`The host is: ${host.hostName}`);
-    
     const allParticipants = participants.concat(host);
 
     allParticipants.sort(() => 0.5 - Math.random());
@@ -59,17 +58,28 @@ function Participants() {
   
     while (allParticipants.length >=2) {
       const pair = [allParticipants.pop(), allParticipants.pop()];
-      console.log('Pair: ', pair);
+      // console.log('Pair: ', pair);
       pairs.push(pair);
     }
-  
     console.log('All pairs', pairs)
+    setSantaPairs(pairs);  
+  }
+
+  const submitText = () => {
+    const displaySantaPairs = JSON.stringify(santaPairs);
+    alert( `The party will be held on: ${info.date},
+    The location: ${info.location} 
+    The max ammount of money is: ${info.ammount} RSD 
+    The host is: ${host.hostName} 
+    ${displaySantaPairs} `
+    );
   }
 
   const participantId = `name-${index}`;
   const emailId = `email-${index}`;
 
-  useEffect(() => console.log(info));
+  // useEffect(() => console.log(info));
+  useEffect(() => console.log('I am',santaPairs));
 
   return(
     <div>
@@ -197,7 +207,12 @@ function Participants() {
       <div className={style.btn_submit}>
         <Button
           submit
-          onClick={handleSubmit}
+          onClick={() => 
+            {
+              submitText();
+              handleSubmit();
+            }
+          }
         >
           SUBMIT
         </Button>
