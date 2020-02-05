@@ -9,18 +9,46 @@ import { NotificationContainer, notifyError } from '../Notifications/Notificatio
 function Participants() {
   const [info, setInfo] = useState({
     date: new Date(), 
-    location: '', 
-    ammount: ''
+    location: {
+      value: '',
+      validation: {
+        required: true
+      },
+      valid: false,
+      inputType: 'input'
+    }, 
+    ammount: {
+      value: '',
+      validation: {
+        required: true
+      },
+      valid: false,
+      inputType: 'input'
+    },
   });
 
   const [host, setHost] = useState({
-    hostName: '',
-    email: ''
+    hostName: {
+      value: '',
+      validation: {
+        required: true
+      },
+      valid: false,
+      inputType: 'input'
+    }, 
+    hostEmail: {
+      value: '',
+      validation: {
+        required: true
+      },
+      valid: false,
+      inputType: 'input'
+    },
   });
   
   const blankParticipant = { name: '', email: '' };
   const [participants, setParticipants] = useState([
-    {...blankParticipant },
+    { ...blankParticipant },
   ]);
 
   const index = 0;
@@ -45,14 +73,8 @@ function Participants() {
     } 
   }
 
-  const handleInfoChange = (event) => 
-    setInfo({...info, [event.target.name]: event.target.value,});
-
   const handleDateChange = (date) =>
     setInfo({...info, date: date});
-
-  const handleHostChange = (event) => 
-    setHost({...host, [event.target.name]: event.target.value,});
 
   const handleParticipantChange = (event) => {
     const updatedParticipants = [...participants];
@@ -68,6 +90,29 @@ function Participants() {
     event.preventDefault();
     setParticipants(participants.filter((p, pindex) => index !== pindex));
   };  
+
+  const checkValidity = (event, identifier) => {
+    const selector = {...identifier}
+    selector.value = event.target.value;
+    const validate = selector.validation;
+
+    if(validate.required && selector.value.length > 0 && selector.value.length !== 0){
+      selector.valid = true;
+      selector.inputType = 'input'
+    }
+    else{
+      selector.valid = false;
+      selector.inputType = 'invalid'
+    }
+
+    if(event.target.name === "location" || event.target.name === "ammount"){
+      setInfo({...info, [event.target.name]: selector});
+    }
+
+    if(event.target.name === "hostName" || event.target.name === "hostEmail"){
+      setHost({...host, [event.target.name]: selector});
+    }
+  }
 
   const handleSubmit = () => {
     console.log(`The party will be held on: ${info.date}, on the location: ${info.location}, the max ammount of money is: ${info.ammount} RSD`);
@@ -90,12 +135,12 @@ function Participants() {
   const participantId = `name-${index}`;
   const emailId = `email-${index}`;
 
-  useEffect(() => console.log(info.date));
+  useEffect(() => console.log(participants));
 
   return(
-    <div>
+    <form>
       <div className={style.form_block}>
-        <form className={style.info_form}>
+        <div className={style.info_form}>
           <h1 className={style.add_your_participants}>Add your participants</h1>
           <div className={style.party_info}>
             <div className={style.party_info_label}>
@@ -110,23 +155,25 @@ function Participants() {
                 value={info.date}
               />
               <Input 
-                onChange={handleInfoChange} 
+                className={info.location.inputType}
                 name="location" 
                 placeholder="Location..."
+                onBlur={event => checkValidity(event, info.location)}
               />
               <Input 
-                onChange={handleInfoChange} 
+                className={info.ammount.inputType}
                 type="number"
                 name="ammount" 
                 placeholder="Ammount in RSD..."
+                onBlur={event => checkValidity(event, info.ammount)}
               />
             </div>
             <hr className={style.party_info_line} />
           </div>
-        </form>
+        </div>
       </div>   
 
-      <form className={style.host}>
+      <div className={style.host}>
         <div className={style.host_label}>
           <label className={style.host_label_name}>Host</label>
           <label className={style.host_label_email}>Email</label>
@@ -134,30 +181,28 @@ function Participants() {
         <div className={style.host_input}>
           <p className={style.participant_number}>1</p>
           <div className={style.host_input_name}>  
-            <Input
+            <Input 
+              className={host.hostName.inputType}
+              name="hostName" 
               placeholder="Name..."
-              name="hostName"
-              id="hostName"
-              value={host.hostName}
-              onChange={handleHostChange}
+              onBlur={event => checkValidity(event, host.hostName)}
             />
           </div>
           <div className={style.host_input_email}>
             <Input
+              className={host.hostEmail.inputType}
               placeholder="Email..."
-              name="email"
-              id="email"
-              value={host.email}
-              onChange={handleHostChange}
+              name="hostEmail"
+              onBlur={event => checkValidity(event, host.hostEmail)}
             />
           </div>
           <div className={style.host_info_warning}>
             <label>This person is a participant too.</label>
           </div>
         </div>
-      </form>
+      </div>
       
-      <form className={style.participant}>                
+      <div className={style.participant}>                
         {
           participants.map((value, index) => (
             <div className={style.participant_block} key={`participant-${index}`}>
@@ -168,7 +213,7 @@ function Participants() {
               <div className={style.participant_input}>  
                 <p className={style.participant_number}>{index+2}</p>
                 <div className={style.participant_input_name}>  
-                  <Input
+                <Input
                       placeholder="Name..."
                       name={participantId}
                       data-index={index}
@@ -211,14 +256,14 @@ function Participants() {
           + ADD PERSON
           </Button>
         </div>
-      </form>
+      </div>
 
       <hr className={style.participants_line} />
 
       <div className={style.btn_submit}>
         {handleSubmitButtonSwitch()}
       </div>
-    </div>
+    </form>
   );      
 }
 

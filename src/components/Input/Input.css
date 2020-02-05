@@ -7,6 +7,15 @@
   border: none;
 }
 
+.invalid {
+  height: 66px;
+  width: 276px;
+  border: red 1px solid;
+  background-color: salmon;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
 .input:focus {
   outline: none;
 }
