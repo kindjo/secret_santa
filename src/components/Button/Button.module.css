@@ -78,3 +78,30 @@
 .button-submit:active {
   transform: translateY(4px);
 }
+
+.button-disabled {
+	box-sizing: border-box;
+	height: 66px;
+	width: 273px;
+  border: 1px solid rgb(105, 95, 95);
+  background-color: rgb(105, 95, 95);
+  border-radius: 10px;
+  display: flex;
+  place-content: center;
+
+  color: #fefefe;
+	font-family: Roboto;
+  font-size: 16px;
+}
+
+.button-disabled:hover{
+  cursor: pointer;
+}
+
+.button-disabled:focus{
+  outline: none;
+}
+
+.button-disabled:active {
+  transform: translateY(4px);
+}
