@@ -1,8 +1,8 @@
 import React from "react";
-import styles from './Input.module.css';
+import './Input.css';
 
-const Input = ({...other}) => {
-  return <input className={styles.input} type='text' {...other} />;
+const Input = ({className, ...other}) => {
+  return <input className={className} type='text' {...other} />;
 };
 
 export default Input;
