@@ -7,7 +7,7 @@
   border: none;
 }
 
-.invalid {
+.error {
   height: 66px;
   width: 276px;
   border: red 1px solid;
