@@ -1,55 +1,34 @@
 import React, { useState, useEffect } from "react"; 
 import style from './Participants.module.css';
+import { connect } from 'react-redux';
+import * as actionTypes from '../../store/actions/actionTypes';
 
 import Input from '../Input/Input';
 import Button from '../Button/Button';
 import DateTimePicker from 'react-datetime-picker/dist/entry';
 
-function Participants() {
-  const [info, setInfo] = useState({
-    location:{
-      value: '',
-      validation: {
-        required: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-    ammount: {
-      value: '',
-      validation: {
-        required: true,
-        isNumeric: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false 
-    },
-  });
-
-  const [host, setHost] = useState({
-    name:{
-      value: '',
-      validation: {
-        required: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-    email: {
-      value: '',
-      validation: {
-        required: true,
-        isEmail: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-  });
-  
+function Participants({
+  info, 
+  date,
+  location,
+  ammount,
+  host, 
+  hostName,
+  hostEmail,
+  participants,
+  setDate, 
+  setLocation, 
+  setAmmount, 
+  setHostName,
+  setHostEmail,
+  setParticipants,
+  addParticipant,
+  removeParticipant,
+  setFormValidity,
+  form,
+  ...other
+}) 
+{
   const blankParticipant = {
     name:{
       value: '',
@@ -72,48 +51,40 @@ function Participants() {
     },
   };
 
-  const [participants, setParticipants] = useState([{
-    name:{
-      value: '',
-      validation: {
-        required: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-    email: {
-      value: '',
-      validation: {
-        required: true,
-        isEmail: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-  },
-  ]);
-
   const index = 0;
 
-  const [formIsValid, setFormIsValid] = useState(false)
-
-  const handleDateChange = (date) =>
-    setInfo({...info, date: date});
-
-  const handleAddParticipant = () => {
-    setParticipants([...participants, {...blankParticipant}]);
+  const handleDateChange = (date) => {
+    setDate(date);
   };
 
-  const handleRemoveParticipant = index => (event) => {
-    event.preventDefault();
-    setParticipants(participants.filter((p, pindex) => index !== pindex));
-  };  
+  const handleLocationChange = (event) => {
+    const value = event.target.value;
+    const valCheck = checkValidity(value, info.location.validation);
+    setLocation({...info.location, value: value, valid: valCheck, formIsValid: valCheck});
+  };
+
+  const handleAmmountChange = (event) => {
+    const value = event.target.value;
+    const valCheck = checkValidity(value, info.ammount.validation);
+    setAmmount({...info.ammount, value: value, valid: valCheck, formIsValid: valCheck});  
+  };
+
+  const handleHostNameChange = (event) => {
+    const val = event.target.value;
+    const valCheck = checkValidity(val, host.hostName.validation);
+    setHostName({...host.hostName, value: val, valid: valCheck, formIsValid: valCheck});    
+  };
+  
+  const handleHostEmailChange = (event) => {
+    const val = event.target.value;
+    const valCheck = checkValidity(val, host.hostEmail.validation);
+    setHostEmail({...host.hostEmail, value: val, valid: valCheck, formIsValid: valCheck});    
+  };
 
   const handleParticipantNameChange = (event, index) => {
     const updatedParticipants = [...participants];
-    updatedParticipants[index].name.value = event.target.value;
+    const val = event.target.value;
+    updatedParticipants[index].name.value = val;
     updatedParticipants[index].name.valid = checkValidity(updatedParticipants[index].name.value, updatedParticipants[index].name.validation)
     updatedParticipants[index].name.formIsValid = updatedParticipants[index].name.valid;
     setParticipants(updatedParticipants);
@@ -121,25 +92,21 @@ function Participants() {
 
   const handleParticipantEmailChange = (event, index) => {
     const updatedParticipants = [...participants];
-    updatedParticipants[index].email.value = event.target.value;
-    updatedParticipants[index].email.valid = checkValidity(updatedParticipants[index].email.value, updatedParticipants[index].email.validation);
+    const val = event.target.value;
+    updatedParticipants[index].email.value = val;
+    updatedParticipants[index].email.valid = checkValidity(updatedParticipants[index].email.value, updatedParticipants[index].email.validation)
     updatedParticipants[index].email.formIsValid = updatedParticipants[index].email.valid;
     setParticipants(updatedParticipants);
   }
-   
-  const checkOnChange = (event, identifier) => {
-    const selector = {...identifier};
 
-    selector.value = event.target.value;
-    selector.valid = checkValidity(selector.value, selector.validation);
-    selector.formIsValid = selector.valid;
+  const handleAddParticipant = () => {
+    addParticipant(blankParticipant);
+  };
 
-    if (event.target.name === 'location' || event.target.name === "ammount" )
-    setInfo({...info, [event.target.name]: selector})
-    
-    if (event.target.name === 'name' || event.target.name === "email" )
-    setHost({...host, [event.target.name]: selector})
-  }
+  const handleRemoveParticipant = index => (event) => {
+    event.preventDefault();
+    removeParticipant(index);
+  };  
 
   const checkValidity = (value, rules) => {
     let isValid = true;
@@ -165,32 +132,40 @@ function Participants() {
     return isValid;
   }
 
-  const formValidityChecker = () => {
-    const index = participants.length -1;
-    let i = 0;
-    while(i<=index){
-      if(
-        info.location.formIsValid &&
-        info.ammount.formIsValid &&
-        host.name.formIsValid &&
-        host.email.formIsValid &&
-        participants[i].name.formIsValid && 
-        participants[i].email.formIsValid
-        ){
-        setFormIsValid(true);
-      }else{
-        setFormIsValid(false);
-      }
-    i++;
-    }
-  }
 
-  useEffect(() => formValidityChecker);
+  const formValidityChecker = () => {    
+    if(
+      !info.location.formIsValid ||
+      !info.ammount.formIsValid ||
+      !host.hostName.formIsValid ||
+      !host.hostEmail.formIsValid 
+    )
+    {
+      setFormValidity(false);
+      return false;
+    }
+    
+    for (const participant of participants){
+      if (
+        !participant.name.formIsValid ||
+        !participant.email.formIsValid
+      )
+      {
+        setFormValidity(false);
+        return false;
+      }
+    }
+    setFormValidity(true);
+    return true;
+  }
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (!formValidityChecker()){
+      return;
+    }
     console.log(`The party will be held on: ${info.date}, on the location: ${info.location.value}, the max ammount of money is: ${info.ammount.value} RSD`);
-    console.log(`The host is: ${host.name.value}`);
+    console.log(`The host is: ${host.hostName.value}`);
     
     const allParticipants = participants.concat(host);
 
@@ -198,7 +173,7 @@ function Participants() {
     const pairs = [];
   
     if (allParticipants.length <2){
-      setFormIsValid(false);
+      setFormValidity(false);
       window.alert("Please enter more than one participant!");
     }else{
       while (allParticipants.length >=2) {
@@ -210,11 +185,13 @@ function Participants() {
     }
   }
 
+  useEffect(() => console.log());
+
   const participantId = `name-${index}`;
   const emailId = `email-${index}`;
 
   return(
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={event => handleSubmit(event)}>
       <div className={style.form_block}>
         <div className={style.info_form}>
           <h1 className={style.add_your_participants}>Add your participants</h1>
@@ -234,14 +211,14 @@ function Participants() {
                 className={info.location.valid ? 'input' : 'input error'}
                 name="location" 
                 placeholder="Location..."
-                onChange={event => checkOnChange(event, info.location)}
+                onChange={event => handleLocationChange(event)}
               />
               <Input 
                 className={info.ammount.valid ? 'input' : 'input error'}
                 type="number"
                 name="ammount" 
                 placeholder="Ammount in RSD..."
-                onChange={event => checkOnChange(event, info.ammount)}
+                onChange={event => handleAmmountChange(event)}
               />
             </div>
             <hr className={style.party_info_line} />
@@ -258,18 +235,18 @@ function Participants() {
           <p className={style.participant_number}>1</p>
           <div className={style.host_input_name}>  
             <Input 
-              className={host.name.valid ? 'input' : 'input error'}
+              className={host.hostName.valid ? 'input' : 'input error'}
               name="name" 
               placeholder="Name..."
-              onChange={event => checkOnChange(event, host.name)}
+              onChange={event => handleHostNameChange(event)}
             />
           </div>
           <div className={style.host_input_email}>
             <Input
-              className={host.email.valid ? 'input' : 'input error'}
+              className={host.hostEmail.valid ? 'input' : 'input error'}
               placeholder="Email..."
               name="email"
-              onChange={event => checkOnChange(event, host.email)}
+              onChange={event => handleHostEmailChange(event)}
             />
           </div>
           <div className={style.host_info_warning}>
@@ -278,6 +255,7 @@ function Participants() {
         </div>
       </div>
       
+      {/* value is participants */}
       <div className={style.participant}>                
         {
           participants.map((value, index) => (
@@ -328,7 +306,7 @@ function Participants() {
         <div className={style.btn_add}>
           <Button 
             type="button"
-            onClick={() => {handleAddParticipant(); setFormIsValid(false)}}
+            onClick={() => {handleAddParticipant(); setFormValidity(false)}}
           >
           + ADD PERSON
           </Button>
@@ -338,10 +316,33 @@ function Participants() {
       <hr className={style.participants_line} />
 
       <div className={style.btn_submit}>
-        <Button type='submit' submit disabled={!formIsValid}>SUBMIT</Button>
+        <Button type='submit' submit >SUBMIT</Button>
       </div>
     </form>
   );      
 }
 
-export default Participants;
+const mapStateToProps = state => {
+  return {
+    info: state.info,
+    host: state.host,
+    participants: state.participants.participants,
+    form: state.form
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    setDate: (date) => dispatch({type: actionTypes.DATE, date: date }),
+    setLocation: (location) => dispatch({type: actionTypes.LOCATION, location: location}),
+    setAmmount: (ammount) => dispatch({type: actionTypes.AMMOUNT, ammount: ammount}),
+    setHostName: (hostName) => dispatch({type: actionTypes.HOST_NAME, hostName: hostName}),
+    setHostEmail: (hostEmail) => dispatch({type: actionTypes.HOST_EMAIL, hostEmail: hostEmail}),
+    setParticipants: (particips) => dispatch({type: actionTypes.SET_PARTICIPANTS, particips: particips}),
+    addParticipant: (blankParticipant) => dispatch({type: actionTypes.ADD_PARTICIPANT, blankParticipant: blankParticipant}),
+    removeParticipant: (id) => dispatch({type: actionTypes.REMOVE_PARTICIPANT, index: id}),
+    setFormValidity: (v) => dispatch({type: actionTypes.CHECK_FORM, v: v}),
+  }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Participants);
