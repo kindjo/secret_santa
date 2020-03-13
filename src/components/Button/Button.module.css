@@ -78,3 +78,9 @@
 .button-submit:active {
   transform: translateY(4px);
 }
+
+.button-submit:disabled {
+  background-color: rgb(114, 112, 112);
+  border-color: black;
+  cursor: not-allowed;
+}

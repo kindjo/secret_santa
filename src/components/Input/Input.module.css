@@ -7,6 +7,19 @@
   border: none;
 }
 
+.input-field {
+  position: relative;
+}
+
+.invalid {
+  height: 66px;
+  width: 276px;
+  border: red 1px solid;
+  background-color: salmon;
+  border-radius: 10px;
+  text-decoration: none;
+}
+
 .input:focus {
   outline: none;
 }
@@ -21,4 +34,9 @@ input[type="number"] {
   text-align: left;
   font-size: 20px;
   padding-left: 10px;
+}
+
+.subtext {
+  color: red;
+  font-weight: 500;
 }
