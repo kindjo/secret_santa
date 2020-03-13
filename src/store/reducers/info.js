@@ -1,27 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  location: {
-    value: '',
-    validation: {
-      required: true,
-      minLength: 1
-    },
-    valid: true,
-    formIsValid: false
-  },
-
-  ammount: {
-    value: '',
-    validation: {
-      required: true,
-      isNumeric: true,
-      minLength: 1
-    },
-    valid: true,
-    formIsValid: false 
-  },
-
+  location: '',
+  ammount: '',
   date: new Date()
 };
 

@@ -1,26 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
-  hostName: {
-    value: '',
-    validation: {
-      required: true,
-      minLength: 1
-    },
-    valid: true,
-    formIsValid: false
-  },
-
-  hostEmail: {
-    value: '',
-    validation: {
-      required: true,
-      minLength: 1,
-      isEmail: true
-    },
-    valid: true,
-    formIsValid: false
-  },
+  hostName: '',
+  hostEmail: ''
 };
 
 const setHostName = (state, action) => {

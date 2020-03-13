@@ -5,7 +5,7 @@ const initialState = {
 }
 
 const setFormValidity = ( state, action ) => {
-  if (action.type === actionTypes.CHECK_FORM){
+  if (action.type === actionTypes.CHECK_FORM_VALIDITY){
     return {
       ...state,
       formIsValid: action.v
@@ -15,7 +15,7 @@ const setFormValidity = ( state, action ) => {
 
 const reducer = (state = initialState, action) => {
   switch ( action.type ) {
-    case actionTypes.CHECK_FORM: return setFormValidity(state, action);
+    case actionTypes.CHECK_FORM_VALIDITY: return setFormValidity(state, action);
     default: return state;
   }
 }

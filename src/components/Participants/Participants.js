@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react"; 
+import React, { useEffect } from "react"; 
 import style from './Participants.module.css';
+
 import { connect } from 'react-redux';
 import * as actionTypes from '../../store/actions/actionTypes';
+import { reduxForm } from 'redux-form';
+import validate from '../../validate';
 
 import Input from '../Input/Input';
 import Button from '../Button/Button';
@@ -30,72 +33,41 @@ function Participants({
 }) 
 {
   const blankParticipant = {
-    name:{
-      value: '',
-      validation: {
-        required: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-    email: {
-      value: '',
-      validation: {
-        required: true,
-        isEmail: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
+    name: '',
+    email: ''
   };
-
-  const index = 0;
 
   const handleDateChange = (date) => {
     setDate(date);
   };
 
   const handleLocationChange = (event) => {
-    const value = event.target.value;
-    const valCheck = checkValidity(value, info.location.validation);
-    setLocation({...info.location, value: value, valid: valCheck, formIsValid: valCheck});
+    setLocation(event.target.value);
   };
 
   const handleAmmountChange = (event) => {
-    const value = event.target.value;
-    const valCheck = checkValidity(value, info.ammount.validation);
-    setAmmount({...info.ammount, value: value, valid: valCheck, formIsValid: valCheck});  
+    setAmmount(event.target.value);  
   };
 
   const handleHostNameChange = (event) => {
-    const val = event.target.value;
-    const valCheck = checkValidity(val, host.hostName.validation);
-    setHostName({...host.hostName, value: val, valid: valCheck, formIsValid: valCheck});    
+    setHostName(event.target.value);    
   };
   
   const handleHostEmailChange = (event) => {
-    const val = event.target.value;
-    const valCheck = checkValidity(val, host.hostEmail.validation);
-    setHostEmail({...host.hostEmail, value: val, valid: valCheck, formIsValid: valCheck});    
+    setHostEmail(event.target.value);    
   };
 
   const handleParticipantNameChange = (event, index) => {
     const updatedParticipants = [...participants];
     const val = event.target.value;
-    updatedParticipants[index].name.value = val;
-    updatedParticipants[index].name.valid = checkValidity(updatedParticipants[index].name.value, updatedParticipants[index].name.validation)
-    updatedParticipants[index].name.formIsValid = updatedParticipants[index].name.valid;
+    updatedParticipants[index].name = val;
     setParticipants(updatedParticipants);
   };
 
   const handleParticipantEmailChange = (event, index) => {
     const updatedParticipants = [...participants];
     const val = event.target.value;
-    updatedParticipants[index].email.value = val;
-    updatedParticipants[index].email.valid = checkValidity(updatedParticipants[index].email.value, updatedParticipants[index].email.validation)
-    updatedParticipants[index].email.formIsValid = updatedParticipants[index].email.valid;
+    updatedParticipants[index].email = val;
     setParticipants(updatedParticipants);
   }
 
@@ -107,31 +79,6 @@ function Participants({
     event.preventDefault();
     removeParticipant(index);
   };  
-
-  const checkValidity = (value, rules) => {
-    let isValid = true;
-
-    if (rules.required){
-      isValid = value.trim() !== "" && isValid;
-    }
-
-    if (rules.isEmail){
-      const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    if (rules.isNumeric) {
-      const pattern = /^\d+$/;
-      isValid = pattern.test(value) && isValid;
-    }
-
-    if (rules.minLength) {
-      isValid = value.length >= rules.minLength && isValid;
-    }
-
-    return isValid;
-  }
-
 
   const formValidityChecker = () => {    
     if(
@@ -187,11 +134,11 @@ function Participants({
 
   useEffect(() => console.log());
 
-  const participantId = `name-${index}`;
-  const emailId = `email-${index}`;
+  // const xxxxx = `name-${index}`;
+  // const yyyyyy = `email-${index}`;
 
   return(
-    <form onSubmit={event => handleSubmit(event)}>
+    <form onSubmit={handleSubmit}>
       <div className={style.form_block}>
         <div className={style.info_form}>
           <h1 className={style.add_your_participants}>Add your participants</h1>
@@ -208,13 +155,13 @@ function Participants({
                 value={info.date}
               />
               <Input 
-                className={info.location.valid ? 'input' : 'input error'}
+                className={style.input}
                 name="location" 
                 placeholder="Location..."
                 onChange={event => handleLocationChange(event)}
               />
               <Input 
-                className={info.ammount.valid ? 'input' : 'input error'}
+                className={style.input}
                 type="number"
                 name="ammount" 
                 placeholder="Ammount in RSD..."
@@ -235,17 +182,17 @@ function Participants({
           <p className={style.participant_number}>1</p>
           <div className={style.host_input_name}>  
             <Input 
-              className={host.hostName.valid ? 'input' : 'input error'}
-              name="name" 
+              className={style.input}
+              name="hostName" 
               placeholder="Name..."
               onChange={event => handleHostNameChange(event)}
             />
           </div>
           <div className={style.host_input_email}>
             <Input
-              className={host.hostEmail.valid ? 'input' : 'input error'}
+              className={style.input}
               placeholder="Email..."
-              name="email"
+              name="hostEmail"
               onChange={event => handleHostEmailChange(event)}
             />
           </div>
@@ -261,18 +208,18 @@ function Participants({
           participants.map((value, index) => (
             <div className={style.participant_block} key={`participant-${index}`}>
               <div className={style.participant_label}>  
-                <label className={style.participant_label_name} htmlFor={participantId}>Participant</label>
-                <label className={style.participant_label_email} htmlFor={emailId}>Email</label>
+                <label className={style.participant_label_name} htmlFor={`name-${index}`}>Participant</label>
+                <label className={style.participant_label_email} htmlFor={`email-${index}`}>Email</label>
               </div>
               <div className={style.participant_input}>  
                 <p className={style.participant_number}>{index+2}</p>
                 <div className={style.participant_input_name}>  
                   <Input
-                    className={value.name.valid ? 'input' : 'input error'}
+                    className={style.input}
                     placeholder="Name..."
-                    name={participantId}
+                    name={`name[${index}]`}
                     data-index={index}
-                    id={participantId}
+                    id={`name-${index}`}
                     title="name"
                     value={value.name.value}                 
                     onChange={event => handleParticipantNameChange(event, index)}
@@ -280,11 +227,11 @@ function Participants({
                 </div>
                 <div className={style.participant_input_email}>
                   <Input
-                    className={value.email.valid ? 'input' : 'input error'}
+                    className={style.input}
                     placeholder="Email..."
-                    name={emailId}
+                    name={`email[${index}]`}
                     data-index={index}
-                    id={emailId}
+                    id={`email-${index}`}
                     title="email"
                     value={value.email.value}
                     onChange={event => handleParticipantEmailChange(event, index)}
@@ -327,7 +274,7 @@ const mapStateToProps = state => {
     info: state.info,
     host: state.host,
     participants: state.participants.participants,
-    form: state.form
+    formValidity: state.formIsValid
   }
 };
 
@@ -341,8 +288,16 @@ const mapDispatchToProps = dispatch => {
     setParticipants: (particips) => dispatch({type: actionTypes.SET_PARTICIPANTS, particips: particips}),
     addParticipant: (blankParticipant) => dispatch({type: actionTypes.ADD_PARTICIPANT, blankParticipant: blankParticipant}),
     removeParticipant: (id) => dispatch({type: actionTypes.REMOVE_PARTICIPANT, index: id}),
-    setFormValidity: (v) => dispatch({type: actionTypes.CHECK_FORM, v: v}),
+    setFormValidity: (v) => dispatch({type: actionTypes.CHECK_FORM_VALIDITY, v: v}),
   }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Participants);
+const connectedParticipants = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Participants);
+
+export default reduxForm({
+  form: 'participants-form',
+  validate
+})(connectedParticipants);

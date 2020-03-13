@@ -2,25 +2,8 @@ import * as actionTypes from '../actions/actionTypes';
 
 const initialState = {
   participants: [{
-    name:{
-      value: '',
-      validation: {
-        required: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
-    email: {
-      value: '',
-      validation: {
-        required: true,
-        isEmail: true,
-        minLength: 1
-      },
-      valid: true,
-      formIsValid: false
-    },
+    name: '',
+    email: ''
   }]
 };
 

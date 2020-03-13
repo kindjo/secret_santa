@@ -1,6 +1,6 @@
 export const ADD_PARTICIPANT = 'ADD_PARTICIPANT';
 export const REMOVE_PARTICIPANT = 'REMOVE_PARTICIPANT';
-export const CHECK_FORM = 'CHECK_FORM';
+export const CHECK_FORM_VALIDITY = 'CHECK_FORM_VALIDITY';
 
 export const DATE = 'DATE';
 export const LOCATION = 'LOCATION';

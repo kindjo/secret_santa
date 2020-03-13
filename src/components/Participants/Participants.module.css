@@ -48,14 +48,14 @@
   height: 15px;
   width: 286px;
   margin: 0;
-  padding-left: 37px;
+  padding-left: 60px;
 }
 
 .party_info_label_ammount {
   height: 15px;
   width: 286px;
   margin: 0;
-  padding-left: 38px;
+  padding-left: 43px;
 }
 
 .party_info_input {
@@ -98,7 +98,7 @@
 .host_label_email {
   width: 286px;
   text-align: center;
-  padding-left: 55px;
+  padding-left: 45px;
 }
 
 .host_input {
@@ -167,7 +167,7 @@
 .participant_label_email {
   height: 15px;
   width: 286px;
-  padding-left: 55px;
+  padding-left: 45px;
 }
 
 .participant_input {
@@ -225,4 +225,15 @@
 
 .dtp:focus {
   outline: none;
+}
+
+/* ----------- Datetime ------------- */
+
+.input {
+	height: 66px;
+	width: 276px;
+  background-color: #FFFFFF;
+  border-radius: 10px;
+  text-decoration: none;
+  border: none;
 }
